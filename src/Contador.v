@@ -66,8 +66,8 @@ module Contador #(
     reg        tick; 
     reg [6:0]  valor_contador;       // MODIFICADO: 7 bits son suficientes
 
-    wire [3:0] w_decenas;
-    wire [3:0] w_unidades;
+    reg [3:0]  w_decenas;            //CAMBIADA
+    reg [3:0]  w_unidades;           //CAMBIADA
     wire [6:0] w_seg;
     wire       w_an;
 
@@ -102,8 +102,8 @@ module Contador #(
     // Separador de Dígitos
     always @(*) begin
         // w_centenas = valor_contador / 100; // ELIMINADO
-        w_decenas  = valor_contador / 10;
-        w_unidades = valor_contador % 10;
+        w_decenas  = (valor_contador / 10); //CAMBIADA
+        w_unidades = (valor_contador % 10); //CAMBIADA
     end
 
     display_mux u_display_driver (
