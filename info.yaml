@@ -3,9 +3,9 @@ project:
   title:        "Contador"      # Project title
   author:       "Ian Marquez Sanchez"      # Your name
   discord:      "norecuerdojaja"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "Contador con multiplexacion"      # One line description of what your project does
+  description:  "Contador de 0-99 con multiplexación para dos displays de 7 segmentos"      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     100000000       # Clock frequency in Hz (or 0 if not applicable)
+  clock_hz:     10000000       # Clock frequency in Hz (or 0 if not applicable)
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
@@ -33,15 +33,15 @@ pinout:
   ui[6]: ""
   ui[7]: ""
 
-  # Outputs
-  uo[0]: "c0"
-  uo[1]: "c1"
-  uo[2]: "c2"
-  uo[3]: "c3"
-  uo[4]: "c4"
-  uo[5]: "c5"
-  uo[6]: "c6"
-  uo[7]: "c7"
+  # Outputs 
+  uo[0]: "seg_a"
+  uo[1]: "seg_b"
+  uo[2]: "seg_c"
+  uo[3]: "seg_d"
+  uo[4]: "seg_e"
+  uo[5]: "seg_f"
+  uo[6]: "seg_g"
+  uo[7]: "digit_select"
 
   # Bidirectional pins
   uio[0]: ""
