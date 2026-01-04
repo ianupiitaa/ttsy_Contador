@@ -9,7 +9,8 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+El presente proyecto fue modificado a partir de la sintesis de un contador (255 unidades del 0 al 255) modelado en SystemVerilog, posteriormente para la compatibilidad de tiny tapeout fue modificado a un archivo verilog, considerando unicamente 8 salidas, lo cual limita el conteo hasta 99, 2 displays y los respectivos segmentos.
+Se considera un contador de refrescoy un bloque de multiplezacion que asigna a cada salida el valor de una senal como las partes fundamentales del presente trabajo
 
 ## How to test
 
