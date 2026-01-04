@@ -31,14 +31,14 @@ async def test_contador(dut):
     
     # Esperamos a ver un cambio en el bit de selección de ánodo (uo_out[7])
     # Esto confirma que el refresh_counter está funcionando.
-    found_anode_toggle = False
-    for _ in range(200000): # Un rango amplio para asegurar que el contador de refresco actúe
-        await RisingEdge(dut.clk)
-        if dut.uo_out.value >= 128: # Si el bit 7 está en 1
-            found_anode_toggle = True
-            break
     
-    assert found_anode_toggle, "Error: El ánodo no cambió de estado. Revisa refresh_counter."
+    found_anode_toggle = False
+    for _ in range(200000): 
+        await RisingEdge(dut.clk)
+        # Convertimos dut.uo_out.value a entero para poder comparar
+        if int(dut.uo_out.value) >= 128: 
+            found_anode_toggle = True
+            break    assert found_anode_toggle, "Error: El ánodo no cambió de estado. Revisa refresh_counter."
 
     # Verificar incremento del contador
     # Dado que MAX_COUNT = CLK_FREQ / 4, a 10MHz son 2,500,000 ciclos.
