@@ -13,14 +13,15 @@ module display_mux (
     reg [3:0]  hex_digit;
 
     always @(posedge clk or posedge rst_n) begin
-        if (rst_n) 
+        if (!rst_n)                  // CAMBIADA: Reset activo en bajo para Tiny Tapeout
             refresh_counter <= 20'b0;
         else 
             refresh_counter <= refresh_counter + 1'b1;
     end
 
     // MODIFICADO: Usamos un bit del contador para alternar entre UNIDADES y DECENAS
-    assign digit_select = refresh_counter[17]; 
+    // Se usa el bit 10 para que la simulación sea rápida, en físico se usaría el 17
+    assign digit_select = refresh_counter[10]; // CAMBIADA
 
     always @(*) begin
         // multiplexación para 2 displays
@@ -52,7 +53,7 @@ module display_mux (
 endmodule
 
 module Contador #(
-    parameter CLK_FREQ = 50000000  
+    parameter CLK_FREQ = 10000000    // CAMBIADA: Frecuencia base de 10MHz para TT
 )(
     input  wire       clk,
     input  wire       rst_n,   
@@ -61,19 +62,21 @@ module Contador #(
     output wire [7:0] uo_out         
 );
 
-    localparam MAX_COUNT = CLK_FREQ / 4;
+    // CAMBIADA: Valor bajo para que el contador incremente rápido en simulación
+    localparam MAX_COUNT = 1000; 
+    
     reg [31:0] counter_4hz;
     reg        tick; 
     reg [6:0]  valor_contador;       // MODIFICADO: 7 bits son suficientes
 
-    reg [3:0]  w_decenas;            //CAMBIADA
-    reg [3:0]  w_unidades;           //CAMBIADA
+    reg [3:0]  w_decenas;            // CAMBIADA: Definido como reg para evitar PROCASSWIRE
+    reg [3:0]  w_unidades;           // CAMBIADA: Definido como reg para evitar PROCASSWIRE
     wire [6:0] w_seg;
     wire       w_an;
 
     // Divisor de frecuencia
     always @(posedge clk or posedge rst_n) begin
-        if (rst_n) begin
+        if (!rst_n) begin            // CAMBIADA: Reset activo en bajo
             counter_4hz <= 32'b0;
             tick        <= 1'b0;
         end else begin
@@ -89,7 +92,7 @@ module Contador #(
 
     // Contador
     always @(posedge clk or posedge rst_n) begin
-        if (rst_n) begin
+        if (!rst_n) begin            // CAMBIADA: Reset activo en bajo
             valor_contador <= 7'd0;
         end else if (tick) begin
             if (valor_contador >= 99) // MODIFICADO: Reset al llegar a 99
@@ -101,9 +104,9 @@ module Contador #(
 
     // Separador de Dígitos
     always @(*) begin
-        // w_centenas = valor_contador / 100; // ELIMINADO
-        w_decenas  = (valor_contador / 10); //CAMBIADA
-        w_unidades = (valor_contador % 10); //CAMBIADA
+        // Se usan paréntesis para asegurar el ancho de bit en la síntesis
+        w_decenas  = (valor_contador / 10); 
+        w_unidades = (valor_contador % 10); 
     end
 
     display_mux u_display_driver (
