@@ -14,8 +14,9 @@ Se considera un contador de refrescoy un bloque de multiplezacion que asigna a c
 
 ## How to test
 
-Explain how to use your project
+Para probar el funcionamiento de manera rudimentaria, puede tomar el archivo .v or verilog y correrlo en Quartus con un test bench simble que unicamnete mande un reset, asi podras ver la interrupcion del conteo.
+Sin embargo, si gustas probarlo directamente dentro del repositorio de Git hub, debes copiar el repositorio, permitir las cciones de git hub y posteriormente modificar el tb.py en la carpeta de test, recomiendo unicamente modificar los tiempos en los que las tareas se ejecutan (los ciclos y los periodos)
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+Puede usarse una fpga con cyclone asignando los pines de salida a diferentes displays de 7 segmentos o a un display con 3 segmentos (preferentemente para que sea compatible), dada la segunda opcion, no se necesita hardware
