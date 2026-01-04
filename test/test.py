@@ -4,8 +4,9 @@
 import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles, RisingEdge
-
-//////////////////////////////
+# ##############################
+# PRUEBA DEL CONTADOR
+# ##############################
 @cocotb.test()
 async def test_contador(dut):
     dut._log.info("Iniciando prueba del Contador 0-99")
