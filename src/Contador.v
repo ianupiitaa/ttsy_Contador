@@ -21,8 +21,8 @@ module display_mux (
             refresh_counter <= refresh_counter + 1'b1;
     end
 
-    // Selección de bit para multiplexación (Bit 1 para simulación rápida)
-    assign digit_select = refresh_counter[1]; 
+     // Selección de bit para multiplexación (Bit 10 para simulación rápida)
+    assign digit_select = refresh_counter[10]; 
 
     always @(*) begin
         if (digit_select == 1'b0) begin
@@ -105,8 +105,8 @@ module Contador #(
     always @(*) begin
         // Realizamos la operación y seleccionamos explícitamente los 4 bits bajos [3:0]
         // Esto le indica a Verilator que el truncamiento es intencional.
-        w_decenas  = (valor_contador / 7'd10)[3:0]; 
-        w_unidades = (valor_contador % 7'd10)[3:0]; 
+        w_decenas  = (valor_contador / 7'd10); 
+        w_unidades = (valor_contador % 7'd10); 
     end
     // ============================================================
 
@@ -122,3 +122,4 @@ module Contador #(
     assign uo_out = {w_an, w_seg}; 
 
 endmodule
+
